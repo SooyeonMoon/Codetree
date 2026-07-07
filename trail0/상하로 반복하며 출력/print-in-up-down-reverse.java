@@ -11,7 +11,7 @@ public class Main {
 
         int cnt = 1;
         for (int i = 0; i < N; i++) {
-            if (cnt >= 5) {
+            if (cnt > N) {
                     for (int j = 0; j < N; j++) {
                         m[j][i] = --cnt;
                 }
