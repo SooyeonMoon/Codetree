@@ -1,8 +1,7 @@
 import java.util.Scanner;
 public class Main {
 
-    public static int[] month = new int[] {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    public static String[] day = new String[] {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+    public static String[] days = new String[] {"Mon", "Tue", "Wed", "Thu", "Fri" ,"Sat", "Sun"};
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -10,28 +9,23 @@ public class Main {
         int d1 = sc.nextInt();
         int m2 = sc.nextInt();
         int d2 = sc.nextInt();
-        // Please write your code here.
-        String A = sc.next();
-        int p = -1;
-        for (int i = 0; i < day.length; i++) {
-            if (day[i].equals(A)) {
-                p = i;
-                break;
-            }
-        }
-        // System.out.println(p);
 
-        int days = getDays(m2, d2) - getDays(m1, d1);
-        // System.out.println(days);
+        String A = sc.next();
+        int key = whichDay(A);
+        // Please write your code here.
+        int result = calculateDays(m2, d2) - calculateDays(m1, d1);
+
         int count = 0;
-        while (days >= p) {
+        while (result >= key) {
             count++;
-            days -= 7;
+            result -= 7;
         }
         System.out.print(count);
     }
 
-    public static int getDays(int m, int d) {
+    public static int calculateDays(int m, int d) {
+        int[] month = new int[] {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
         int total = 0;
         for (int i = 1; i < m; i++) {
             total += month[i];
@@ -39,5 +33,14 @@ public class Main {
         total += d;
 
         return total;
+    }
+
+    public static int whichDay(String A) {
+        for (int i = 0; i < days.length; i++) {
+            if (A.equals(days[i])) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
