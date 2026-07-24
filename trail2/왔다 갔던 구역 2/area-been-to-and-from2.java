@@ -1,54 +1,53 @@
 import java.util.Scanner;
-
 public class Main {
-    public static int MAX_N = 100;
 
-    public static int[] arr = new int[2 * MAX_N + 1];
-    public static int[] distance = new int[MAX_N + 1];
-    public static String[] direction = new String[MAX_N + 1];
+    public static int OFFSET = 1000;
+    public static int MAX_N = 100;
+    public static int MAX_R = 2000;
+
+    public static int[] x1 = new int[MAX_N];
+    public static int[] x2 = new int[MAX_N];
+
+    public static int[] checked = new int[MAX_R + 1];
 
     public static void main(String[] args) {
-        // Please write your code here.
         Scanner sc = new Scanner(System.in);
 
-        int n = sc.nextInt();
-        for (int i = 0; i < n; i++) {
-            distance[i] = sc.nextInt();
-            direction[i] = sc.next();
-        }
-        countDistance(n);
-        int count = countMoreThanTwo();
+        int N = sc.nextInt();
+        int cur = 0;
 
-        System.out.print(count);
-    }
-
-    public static void countDistance(int n) {
-        int start = 100;
-
-        for (int i = 0; i < n; i++) {
-            int count = 0;
-            if (direction[i].equals("L")) { // 왼쪽으로 이동
-                for (int a = start; count < distance[i]; count++) {
-                    arr[--a]++;
-                }
-                start -= distance[i];
+        for (int i = 0; i < N; i++) {
+            int x = sc.nextInt();
+            char dir = sc.next().charAt(0);
+            // Please write your code here.
+            if (dir == 'L') {
+                x1[i] = cur - x;
+                x2[i] = cur;
+                cur -= x;
             }
-            else {                          // 오른쪽으로 이동
-                for (int a = start; count < distance[i]; count++) {
-                    arr[a++]++;
-                }
-                start += distance[i];
-            }
-        }
-    }
 
-    public static int countMoreThanTwo() {
-        int count = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] >= 2) {
-                count++;
+            if (dir == 'R') {
+                x1[i] = cur;
+                x2[i] = cur + x;
+                cur += x;
+            }
+
+            x1[i] += OFFSET;
+            x2[i] += OFFSET;
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int a = x1[i]; a < x2[i]; a++) {
+                checked[a]++;
             }
         }
-        return count;
+
+        int total = 0;
+        for (int i = 0; i < checked.length; i++) {
+            if (checked[i] >= 2) {
+                total++;
+            }
+        }
+        System.out.print(total);
     }
 }
