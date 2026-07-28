@@ -72,18 +72,9 @@ public class Main {
     public static int ifSameLocation() {
         int length = MAX_NUM + 1;
         
-        if (n < m) {
-            for (int i = 1; i < length; i++) {
-                if (location_A[i] == location_B[i]) {
-                    return i;
-                }
-            }
-        }
-        else {
-            for (int i = 1; i < length; i++) {
-                if (location_A[i] == location_B[i]) {
-                    return i;
-                }
+       for (int i = 1; i < length; i++) {
+            if (location_A[i] == location_B[i]) {
+                return i;
             }
         }
         return -1;
