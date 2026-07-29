@@ -17,10 +17,10 @@ public class Main {
             if (str.charAt(i) == 'L') {
                 dirNum = (dirNum + 3) % 4; //counterclockwise
             }
-            if (str.charAt(i) == 'R') {
+            else if (str.charAt(i) == 'R') {
                 dirNum = (dirNum + 1) % 4; // clockwise
             }
-            if (str.charAt(i) == 'F') {
+            else { // str.charAt(i) == 'F'인 경우
                 posX += dx[dirNum];
                 posY += dy[dirNum];
             }
