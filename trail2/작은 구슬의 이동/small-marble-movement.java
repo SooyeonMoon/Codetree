@@ -1,52 +1,49 @@
 import java.util.Scanner;
 
 public class Main {
-    public static int n;
 
-    public static int[] dx = new int[] {0, 1, -1, 0};
-    public static int[] dy = new int[] {1, 0, 0, -1};
+    public static int N;
+
+    public static int[] dx = {0, 1, -1, 0};
+    public static int[] dy = {1, 0, 0, -1};
 
     public static void main(String[] args) {
-        // Please write your code here.
         Scanner sc = new Scanner(System.in);
-
-        n = sc.nextInt(); // 격자 크기 n * n
-        int t = sc.nextInt(); // 움직이는 시간 t초
-
-        int x = sc.nextInt() - 1; // x행은 격자상에서 (x - 1)행
-        int y = sc.nextInt() - 1; // y열은 격자상에서 (y - 1)열
-        char d = sc.next().charAt(0); // 어느 방향으로 이동할 것인지
-
-        int dirNum = moveDirection(d);
-        // System.out.println(dirNum);
-
+        N = sc.nextInt(); // N행 N열 배열
+        int T = sc.nextInt(); // t초
+        int R = sc.nextInt() - 1; // 초기에 R행
+        int C = sc.nextInt() - 1; // C열
+        char D = sc.next().charAt(0); // 구슬의 이동 방향
+        // Please write your code here.
+        int dirNum = getDir(D);
         int nx, ny;
-        for (int i = 0; i < t; i++) {
-            x = x + dx[dirNum];
-            y = y + dy[dirNum];
+        for (int i = 0; i < T; i++) {
+            nx = R + dx[dirNum];
+            ny = C + dy[dirNum];
 
-            if (!inRange(x, y)) {
+            if (!inRange(nx, ny))
                 dirNum = 3 - dirNum;
-                x = x + dx[dirNum];
-                y = y + dy[dirNum];
-                // System.out.println(dirNum);
+            else {
+                R = R + dx[dirNum];
+                C = C + dy[dirNum];
             }
         }
-        System.out.print((x + 1) + " " + (y + 1));
+
+        System.out.print((R + 1) + " " + (C + 1));
     }
 
-    public static boolean inRange(int x, int y) {
-        return (x >= 0 && x < n && y >= 0 && y < n);
-    }
-
-    public static int moveDirection(char d) {
-        if (d == 'R')
+    public static int getDir(char D) {
+        if (D == 'R')
             return 0;
-        else if (d == 'D')
+        else if (D == 'D')
             return 1;
-        else if (d == 'U')
+        else if (D == 'U')
             return 2;
         else
             return 3;
+    }
+
+    public static boolean inRange(int x, int y) {
+        return (x >= 0 && x < N && y >= 0 && y < N);
     }
 }
