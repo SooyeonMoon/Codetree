@@ -1,43 +1,48 @@
 import java.util.Scanner;
-
 public class Main {
-    public static int MAX_N = 1000;
 
-    public static int[] dx = new int[] {1, 0, -1, 0};
-    public static int[] dy = new int[] {0, -1, 0, 1};
+    public static int[] dx = {1, 0, -1, 0};
+    public static int[] dy = {0, -1, 0, 1};
 
-    public static int[] posX = new int[MAX_N + 1];
-    public static int[] posY = new int[MAX_N + 1];
+    public static int x = 0, y = 0;
 
     public static void main(String[] args) {
-        // Please write your code here.
         Scanner sc = new Scanner(System.in);
-
         int n = sc.nextInt();
-        int time = 1, flag = 0;
+        char[] dir = new char[n];
+        int[] dist = new int[n];
+        for(int i = 0; i < n; i++){
+            dir[i] = sc.next().charAt(0);
+            dist[i] = sc.nextInt();
+        }
+        // Please write your code here.
+        int count = 0, flag = 0;
         for (int i = 0; i < n; i++) {
-            char d = sc.next().charAt(0);
-            int distance = sc.nextInt();
+            int dirNum = moveDir(dir[i]);
+            // System.out.println(dirNum);
+            for (int t = 0; t < dist[i]; t++) {
+                x = x + dx[dirNum];
+                y = y + dy[dirNum];
+                // System.out.println(x + " " + y);
+                count++;
 
-            int dirNum = moveDirection(d);
-            for (int a = 0; a < distance; a++) {
-                posX[time] = posX[time - 1] + dx[dirNum];
-                posY[time] = posY[time - 1] + dy[dirNum];
-                // System.out.println(posX[time] + " " + posY[time]);
-
-                if (posX[time] == 0 && posY[time] == 0 && flag == 0) {
-                    flag = time;
+                if (x == 0 && y == 0) {
+                    flag = 1;
+                    break;
                 }
-                time++;
+            }
+
+            if (flag == 1) {
+                System.out.print(count);
+                break;
             }
         }
-        if (flag != 0)
-            System.out.print(flag);
-        else
+        if (flag == 0) {
             System.out.print("-1");
+        }
     }
 
-    public static int moveDirection(char d) {
+    public static int moveDir(char d) {
         if (d == 'E')
             return 0;
         else if (d == 'S')
