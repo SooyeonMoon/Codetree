@@ -28,14 +28,11 @@ public class Main {
 
             if (!inRange(nx, ny) || answer[nx][ny] != 0) {
                 dirNum = (dirNum + 1) % 4;
-                nx = x + dx[dirNum];
-                ny = y + dy[dirNum];
                 // System.out.println(dirNum);
             }
-
-            answer[nx][ny] = i;
             x = x + dx[dirNum];
             y = y + dy[dirNum];
+            answer[x][y] = i;
         }
 
         for (int i = 0; i < n; i++) {
